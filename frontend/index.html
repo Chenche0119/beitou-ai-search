@@ -99,10 +99,9 @@
             }
         }
 
-        // 回到 PlayReal：改成你的遊戲入口頁網址
+        // 回到 PlayReal：回到上一頁 (通常是遊戲頁面)
         function goBack() {
-            // 只要回到你要的 PlayReal 首頁或特定關卡
-            window.location.href = "https://playreal.cc/你的遊戲ID";
+            window.history.back();
         }
 
         // 若你希望載入頁面就自動帶入 ?q= 參數，可在這裡呼叫：
