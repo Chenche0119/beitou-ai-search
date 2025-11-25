@@ -35,7 +35,7 @@ app.post("/ai_search", async (req, res) => {
                     {
                         role: "system",
                         content:
-                            "你是一位協助台灣中高齡者搜尋健康資訊的 AI 助手。你的回答需簡潔、具體、容易懂，並提醒使用者請以官方醫療資訊為準。並且，此為搭配 Playreal AI 搜尋功能設計的 AI 助手，回覆長度請控制在 100 字以內並條列式整理重點。"
+                            "你是一位協助台灣中高齡者搜尋資訊的 AI 助手。你的回答需簡潔、具體、容易懂，並提醒使用者請以官方資訊為準。並且，此為搭配 Playreal AI 搜尋功能設計的 AI 助手，回覆長度請控制在 100 字以內並條列式整理重點。"
                     },
                     {
                         role: "user",
@@ -55,7 +55,7 @@ app.post("/ai_search", async (req, res) => {
 
         return res.json({
             answer,
-            source: "AI 生成結果，請再參考衛福部與醫療機構資訊"
+            source: "AI 生成結果，請查閱相關官方資訊"
         });
     } catch (err) {
         console.error(err);

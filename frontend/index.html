@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>AI 健康搜尋</title>
+    <title>AI 搜尋練習</title>
     <style>
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -39,14 +39,14 @@
 
 <body>
 
-    <h2>AI 健康搜尋</h2>
+    <h2>AI 搜尋練習</h2>
 
     <p>輸入你想查詢的內容，例如：「膝蓋退化適合的運動 來源：衛福部」</p>
 
     <input id="query" placeholder="輸入搜尋句..." />
     <div>
         <button onclick="search()">開始搜尋</button>
-        <button onclick="fillFromUrl()">帶入 PlayReal 搜尋句</button>
+        <!-- <button onclick="fillFromUrl()">帶入 PlayReal 搜尋句</button> -->
     </div>
 
     <div id="answer"></div>
@@ -105,7 +105,7 @@
         }
 
         // 若你希望載入頁面就自動帶入 ?q= 參數，可在這裡呼叫：
-        // fillFromUrl();
+        fillFromUrl();
     </script>
 
 </body>
