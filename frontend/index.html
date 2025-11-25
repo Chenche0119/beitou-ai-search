@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>AI 健康搜尋</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        h2 {
+            margin-bottom: 8px;
+        }
+
+        #query {
+            width: 100%;
+            max-width: 600px;
+            padding: 8px;
+        }
+
+        #answer {
+            white-space: pre-wrap;
+            margin-top: 16px;
+            border: 1px solid #ccc;
+            padding: 12px;
+            max-width: 600px;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin-top: 8px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>AI 健康搜尋</h2>
+
+    <p>輸入你想查詢的內容，例如：「膝蓋退化適合的運動 來源：衛福部」</p>
+
+    <input id="query" placeholder="輸入搜尋句..." />
+    <div>
+        <button onclick="search()">開始搜尋</button>
+        <button onclick="fillFromUrl()">帶入 PlayReal 搜尋句</button>
+    </div>
+
+    <div id="answer"></div>
+
+    <button onclick="goBack()">回到遊戲</button>
+
+    <script>
+        // 讀取 URL querystring 中的 ?q= 參數
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name) || "";
+        }
+
+        // 從 URL 把 PlayReal 傳來的搜尋句塞進輸入框
+        function fillFromUrl() {
+            const q = getQueryParam("q");
+            if (q) {
+                document.getElementById("query").value = q;
+            } else {
+                alert("目前 URL 中沒有 q 參數，可以直接手動輸入。");
+            }
+        }
+
+        async function search() {
+            const q = document.getElementById("query").value.trim();
+            if (!q) {
+                alert("請先輸入搜尋句");
+                return;
+            }
+
+            document.getElementById("answer").innerText = "搜尋中，請稍候……";
+
+            try {
+                // 注意：本地開發時，請將 URL 改為 http://localhost:3000/ai_search
+                const res = await fetch("http://localhost:3000/ai_search", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ query: q })
+                });
+
+                const data = await res.json();
+                if (data.error) {
+                    document.getElementById("answer").innerText = "錯誤：" + data.error;
+                } else {
+                    document.getElementById("answer").innerText = data.answer + "\n\n來源說明：" + data.source;
+                }
+            } catch (e) {
+                console.error(e);
+                document.getElementById("answer").innerText = "呼叫 AI 失敗，請稍後再試。";
+            }
+        }
+
+        // 回到 PlayReal：改成你的遊戲入口頁網址
+        function goBack() {
+            // 只要回到你要的 PlayReal 首頁或特定關卡
+            window.location.href = "https://playreal.cc/你的遊戲ID";
+        }
+
+        // 若你希望載入頁面就自動帶入 ?q= 參數，可在這裡呼叫：
+        // fillFromUrl();
+    </script>
+
+</body>
+
+</html>
