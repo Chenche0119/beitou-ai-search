@@ -8,31 +8,105 @@
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
             padding: 20px;
-            line-height: 1.5;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            color: #333;
         }
 
         h2 {
-            margin-bottom: 8px;
+            margin-bottom: 16px;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: #666;
         }
 
         #query {
             width: 100%;
-            max-width: 600px;
-            padding: 8px;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            /* 確保 padding 不會撐大寬度 */
+            margin-bottom: 12px;
+        }
+
+        #query:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            /* 手機版自動換行 */
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex: 1;
+            /* 按鈕平均分配寬度 */
+            min-width: 120px;
+            /* 防止按鈕太小 */
+        }
+
+        button.primary {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        button.primary:hover {
+            background-color: #357abd;
+        }
+
+        button.secondary {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        button.secondary:hover {
+            background-color: #d0d0d0;
         }
 
         #answer {
             white-space: pre-wrap;
-            margin-top: 16px;
-            border: 1px solid #ccc;
-            padding: 12px;
-            max-width: 600px;
+            margin-top: 24px;
+            background-color: white;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            line-height: 1.8;
         }
 
-        button {
-            padding: 8px 16px;
-            margin-top: 8px;
-            margin-right: 8px;
+        /* 手機版優化 */
+        @media (max-width: 600px) {
+            body {
+                padding: 16px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            button {
+                width: 100%;
+                /* 手機版按鈕滿版 */
+                flex: none;
+            }
         }
     </style>
 </head>
@@ -44,14 +118,17 @@
     <p>輸入你想查詢的內容與來源</p>
 
     <input id="query" placeholder="輸入搜尋句..." />
-    <div>
-        <button onclick="search()">開始搜尋</button>
-        <!-- <button onclick="fillFromUrl()">帶入 PlayReal 搜尋句</button> -->
+
+    <div class="btn-group">
+        <button class="primary" onclick="search()">開始搜尋</button>
+        <!-- <button class="secondary" onclick="fillFromUrl()">帶入 PlayReal 搜尋句</button> -->
     </div>
 
     <div id="answer"></div>
 
-    <button onclick="goBack()">回到遊戲</button>
+    <div class="btn-group">
+        <button class="secondary" onclick="goBack()">回到遊戲</button>
+    </div>
 
     <script>
         // 讀取 URL querystring 中的 ?q= 參數
