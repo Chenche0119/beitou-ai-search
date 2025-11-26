@@ -99,18 +99,11 @@
             }
         }
 
-        // 回到 PlayReal：回到上一頁 (通常是遊戲頁面)
+        // 回到 PlayReal：直接回到上一頁
         function goBack() {
-            // 嘗試從 URL 取得 next_page 參數
-            const nextPage = getQueryParam("next_page");
-
-            if (nextPage) {
-                // 如果有指定下一頁，就跳轉過去
-                window.location.href = nextPage;
-            } else {
-                // 如果沒有，預設回到上一頁 (或是你可以改成預設回到 PlayReal 首頁)
-                window.history.back();
-            }
+            // 因為 PlayReal 的網址結構複雜，直接用 history.back() 回到上一頁最安全
+            // 這會保留使用者的遊戲狀態
+            window.history.back();
         }
 
         // 若你希望載入頁面就自動帶入 ?q= 參數，可在這裡呼叫：
