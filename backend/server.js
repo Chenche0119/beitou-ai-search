@@ -10,7 +10,6 @@ app.use(express.json());
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-// 健康檢查
 app.get("/", (req, res) => {
     res.send("USR AI_Search_demo backend (GPT-5.1) is running");
 });
@@ -55,7 +54,7 @@ app.post("/ai_search", async (req, res) => {
 
         return res.json({
             answer,
-            source: "AI 生成結果，請查閱相關官方資訊"
+            source: "AI 生成結果，請查閱相關官方資訊後再做決定"
         });
     } catch (err) {
         console.error(err);
@@ -65,5 +64,5 @@ app.post("/ai_search", async (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`USR AI_Search_demo backend (GPT-5.1) listening on port ${port}`);
+    console.log(`USR AI_Search_demo backend (GPT-4o-mini) listening on port ${port}`);
 });
