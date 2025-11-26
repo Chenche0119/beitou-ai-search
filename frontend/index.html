@@ -64,9 +64,9 @@
         function fillFromUrl() {
             const q = getQueryParam("q");
             if (q) {
-                document.getElementById("query").value = q;
-            } else {
-                alert("目前 URL 中沒有 q 參數，可以直接手動輸入。");
+                // 使用 decodeURIComponent 確保中文能正確顯示
+                const decodedQ = decodeURIComponent(q);
+                document.getElementById("query").value = decodedQ;
             }
         }
 
