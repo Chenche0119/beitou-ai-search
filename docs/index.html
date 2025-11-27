@@ -42,6 +42,14 @@
             border-radius: 8px;
             box-sizing: border-box;
             margin-bottom: 16px;
+            resize: none;
+            /* 禁止手動調整大小 */
+            overflow: hidden;
+            /* 隱藏捲軸 */
+            min-height: 60px;
+            /* 設定最小高度 */
+            font-family: inherit;
+            /* 繼承字體設定 */
         }
 
         #query:focus {
@@ -130,7 +138,7 @@
 
     <p>輸入你想查詢的內容與來源</p>
 
-    <input id="query" placeholder="輸入搜尋句..." />
+    <textarea id="query" placeholder="輸入搜尋句..." rows="1"></textarea>
 
     <div class="btn-group">
         <button class="primary" onclick="search()">開始搜尋</button>
@@ -144,6 +152,16 @@
     </div>
 
     <script>
+        // 自動調整高度的函式
+        function autoResize() {
+            const textarea = document.getElementById("query");
+            textarea.style.height = 'auto'; // 先重置高度
+            textarea.style.height = textarea.scrollHeight + 'px'; // 設定為內容高度
+        }
+
+        // 綁定輸入事件
+        document.getElementById("query").addEventListener("input", autoResize);
+
         // 讀取 URL querystring 中的 ?q= 參數
         function getQueryParam(name) {
             const params = new URLSearchParams(window.location.search);
@@ -156,7 +174,10 @@
             if (q) {
                 // 使用 decodeURIComponent 確保中文能正確顯示
                 const decodedQ = decodeURIComponent(q);
-                document.getElementById("query").value = decodedQ;
+                const textarea = document.getElementById("query");
+                textarea.value = decodedQ;
+                // 填入內容後自動調整高度
+                autoResize();
             }
         }
 
